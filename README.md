@@ -5,6 +5,7 @@ NestJS backend skeleton with:
 - Strict TypeScript
 - Husky + lint-staged (blocks bad commits)
 - Clean structure designed to grow into AWS + Docker deployments
+- DTO validation (ValidationPipe + class-validator)
 
 ## Requirements
 - Node.js (LTS recommended)
@@ -17,6 +18,16 @@ npm install
 cp .env.example .env
 npm run start:dev
 ```
+
+Then open Swagger docs:
+- http://localhost:3000/docs
+
+
+## API
+- `GET /targets` — list monitoring targets
+- `POST /targets/http` — create HTTP monitoring target
+- `GET /targets/:id/status` — latest check status
+
 
 ## Scripts
 
