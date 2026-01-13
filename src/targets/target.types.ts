@@ -1,4 +1,4 @@
-export type TargetType = 'http';
+export type TargetType = 'http' | 'redis';
 
 export interface Target {
   id: string;

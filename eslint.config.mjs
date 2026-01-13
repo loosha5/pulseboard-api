@@ -47,5 +47,11 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
     },
-  }
+  },
+  {
+    files: ['src/**/*.dto.ts', 'src/**/*.entity.ts', 'src/**/*.decorator.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-call': 'off',
+    },
+  },
 );
