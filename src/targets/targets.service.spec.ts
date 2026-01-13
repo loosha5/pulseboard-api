@@ -1,18 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { TargetsService } from './targets.service';
 
-describe('TargetsService', () => {
-  let service: TargetsService;
+describe('TargetsService (unit)', () => {
+  it('createHttpTarget creates a target with expected defaults', () => {
+    const service = new TargetsService();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [TargetsService],
-    }).compile();
+    const target = service.createHttpTarget('google', 'https://www.google.com');
 
-    service = module.get<TargetsService>(TargetsService);
+    expect(target.name).toBe('google');
+    expect(target.type).toBe('http');
+    expect(target.url).toBe('https://www.google.com');
+    expect(target.enabled).toBe(true);
+    expect(typeof target.id).toBe('string');
+    expect(typeof target.createdAt).toBe('string');
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('listTargets includes created targets', () => {
+    const service = new TargetsService();
+
+    service.createHttpTarget('a', 'https://a.com');
+    service.createHttpTarget('b', 'https://b.com');
+
+    const targets = service.listTargets();
+
+    expect(targets).toHaveLength(2);
+    expect(targets[0].name).toBe('a');
+    expect(targets[1].name).toBe('b');
   });
 });
