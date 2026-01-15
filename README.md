@@ -80,3 +80,41 @@ Planned additions (incremental):
 - Optional worker process (queue / cron style)
 
 ## Database
+
+This project uses **Prisma** for relational data modelling and database migrations.
+
+### Local development database
+
+Local development uses **SQLite** (stored as a file):
+
+- the database is stored in `dev.db` (generated locally)
+- `dev.db` is NOT committed to git
+- schema changes are tracked via migrations in `prisma/migrations`
+
+Environment variable:
+
+    DATABASE_URL="file:./dev.db"
+
+### Migrations
+
+Apply migrations locally:
+
+    npx prisma migrate dev
+
+### Prisma Studio (DB viewer)
+
+Open Prisma Studio to inspect tables/rows:
+
+    npx prisma studio
+
+### Data model
+
+Main tables:
+
+- `Target` — monitoring targets (HTTP now, Redis later)
+- `CheckResult` — historical monitoring results linked to targets via `targetId`
+
+Notes:
+
+- the scheduler periodically runs checks and creates new `CheckResult` rows
+- the latest result is exposed via `GET /targets/:id/status`
