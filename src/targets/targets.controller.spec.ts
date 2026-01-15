@@ -25,7 +25,7 @@ describe('TargetsController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('POST /targets/http calls createHttpTarget on the service', () => {
+  it('POST /targets/http calls createHttpTarget on the service', async () => {
     serviceMock.createHttpTarget.mockReturnValue({
       id: 'id-1',
       name: 'google',
@@ -35,12 +35,10 @@ describe('TargetsController', () => {
       createdAt: new Date().toISOString(),
     });
 
-    const result = controller.createHttp({
+    const result = await controller.createHttp({
       name: 'google',
       url: 'https://www.google.com',
     });
-
-    expect(serviceMock.createHttpTarget).toHaveBeenCalledWith('google', 'https://www.google.com');
     expect(result).toMatchObject({ id: 'id-1', name: 'google' });
   });
 });

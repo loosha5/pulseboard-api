@@ -12,23 +12,23 @@ export class TargetsController {
 
   @Get('targets')
   @ApiOkResponse({ type: TargetDto, isArray: true })
-  list() {
-    return this.targets.listTargets();
+  async list() {
+    return await this.targets.listTargets();
   }
 
   @Post('targets/http')
   @ApiBody({ type: CreateHttpTargetDto })
   @ApiCreatedResponse({ type: TargetDto })
-  createHttp(@Body() dto: CreateHttpTargetDto) {
-    return this.targets.createHttpTarget(dto.name, dto.url);
+  async createHttp(@Body() dto: CreateHttpTargetDto) {
+    return await this.targets.createHttpTarget(dto.name, dto.url);
   }
 
   @Get('targets/:id/status')
   @ApiParam({ name: 'id' })
   @ApiOkResponse({ type: CheckResultDto })
-  latestStatus(@Param('id') id: string) {
+  async latestStatus(@Param('id') id: string) {
     return (
-      this.targets.getLatestResult(id) ?? {
+      (await this.targets.getLatestResult(id)) ?? {
         targetId: id,
         status: 'UNKNOWN',
         checkedAt: null,
