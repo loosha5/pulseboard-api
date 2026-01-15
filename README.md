@@ -1,3 +1,5 @@
+![CI](https://github.com/loosha5/pulseboard-api/actions/workflows/ci.yaml/badge.svg?branch=dev)
+
 # Pulseboard API (NestJS)
 
 NestJS backend skeleton with:
