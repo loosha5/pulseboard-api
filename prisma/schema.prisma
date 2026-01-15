@@ -4,5 +4,39 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+}
+
+enum TargetType {
+  http
+  redis
+}
+
+enum CheckStatus {
+  UP
+  DOWN
+}
+
+model Target {
+  id        String     @id @default(cuid())
+  name      String
+  type      TargetType
+  url       String
+  enabled   Boolean    @default(true)
+  createdAt DateTime   @default(now())
+
+  results   CheckResult[]
+}
+
+model CheckResult {
+  id String @id @default(cuid())
+
+  targetId String
+  target   Target @relation(fields: [targetId], references: [id], onDelete: Cascade)
+
+  status    CheckStatus
+  checkedAt DateTime    @default(now())
+  latencyMs Int
+  message   String?
+
+  @@index([targetId, checkedAt])
 }
