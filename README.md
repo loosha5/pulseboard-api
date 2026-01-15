@@ -78,3 +78,5 @@ Planned additions (incremental):
   - EC2 deployment first
   - later: Lambda-style work (serverless patterns)
 - Optional worker process (queue / cron style)
+
+## Database
