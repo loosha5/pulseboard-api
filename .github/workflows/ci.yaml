@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      DATABASE_URL: "file:./test.db"
 
     steps:
       - name: Checkout
@@ -21,6 +24,9 @@ jobs:
 
       - name: Install
         run: npm ci
+      
+      - name: Migrate DB (SQLite)
+        run: npx prisma migrate deploy
 
       - name: Lint
         run: npm run lint
